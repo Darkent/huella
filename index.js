@@ -1,35 +1,62 @@
 const express = require ("express");
-const ZKLib = require('zklib');
 const app = express();
-
+const jobs = require("./src/job.js")
+const repository = require("./src/repository.js");
+const controller = require("./src/controllers");
+const ZKLib = require("node-zklib");
 app.listen(5000,()=>{
     console.log("El servidor esta corriendo");
 });
 
-ZK = new ZKLib({
-    ip: '192.168.5.11',
-    port: 4370,
-    inport: 5200,
-    timeout: 5000,
-  });
-   
-  // connect to access control device
-  ZK.connect(function(err) {
-    if (err) throw err;
-   
-    // read the time info from th device
-    ZK.getTime(function(err, t) {
-      // disconnect from the device
-  
-      ZK.disconnect();
-      if (err) throw err;
-   
-      console.log("Device clock's time is " + t.toString());
-    });
-ZK.getAttendance((function(err,data){
-    console.log(data);
+jobs.job();
 
-    if(err) throw err;
-}))
-    
-  });
+
+
+
+
+
+// const job = schelude.scheduleJob('*/1 * * * *',function(){
+//     console.log(new Date());
+// })
+
+// const test = async () => {
+ 
+ 
+//     let zkInstance = new ZKLib('192.168.0.201', 4370, 10000, 5000);
+//     // try {
+//     //     // Create socket to machine 
+//     //     await zkInstance.createSocket()
+ 
+ 
+//     //     // Get general info like logCapacity, user counts, logs count
+//     //     // It's really useful to check the status of device 
+//     //     console.log(await zkInstance.getInfo())
+//     // } catch (e) {
+//     //     console.log(e)
+//     //     if (e.code === 'EADDRINUSE') {
+//     //     }
+//     // }
+//     // Get users in machine 
+//     // const users = await zkInstance.getUsers()
+//     // console.log(users)
+//     // Get all logs in the machine 
+//     // Currently, there is no filter to take data, it just takes all !!
+//     // const logs = await zkInstance.getAttendances()
+
+//     zkInstance.getRealTimeLogs((data)=>{
+//         // do something when some checkin 
+//         console.log(data)
+//     })
+ 
+ 
+ 
+//     // delete the data in machine
+//     // You should do this when there are too many data in the machine, this issue can slow down machine 
+//    // zkInstance.clearAttendanceLog();
+ 
+ 
+//     // Disconnect the machine ( don't do this when you need realtime update :))) 
+   
+// }
+ 
+// test()
